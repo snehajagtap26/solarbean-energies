@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You | Solarbean Energies</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .thankyou-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background: url('solar1.jpg') center/cover fixed no-repeat;
+      position: relative;
+    }
+    .thankyou-page::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(8, 34, 57, 0.45);
+      z-index: 0;
+    }
+    .thankyou-card {
+      position: relative;
+      z-index: 1;
+      max-width: 620px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 2rem;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.25);
+    }
+    .thankyou-animation {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: heartbeat 1.2s infinite alternate;
+      box-shadow: 0 0 0 rgba(34, 197, 94, 0.5);
+    }
+    .thankyou-animation::after {
+      content: '✓';
+      font-size: 3rem;
+      color: #fff;
+      font-weight: 700;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    @keyframes heartbeat {
+      from { transform: scale(1); box-shadow: 0 0 0 rgba(34, 197, 94, 0.6); }
+      to { transform: scale(1.12); box-shadow: 0 0 24px rgba(34, 197, 94, 0.35); }
+    }
+    .thankyou-title {
+      margin: 1rem 0 0.5rem;
+      font-family: var(--font-head);
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+    .thankyou-message {
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body class="thankyou-page">
+  <div class="thankyou-card">
+    <div class="thankyou-animation"></div>
+    <h1 class="thankyou-title">Thank You for the details!</h1>
+    <p class="thankyou-message">We got your details and an expert will reach out to you shortly. We are excited to begin your solar journey together.</p>
+    <a href="index.html" class="btn btn-primary" style="margin-top: 1rem;">Go to Home</a>
+    <a href="index.html#consultation" class="btn btn-outline" style="margin-top: 0.75rem; display: inline-block;">Submit another request</a>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var params = new URLSearchParams(window.location.search);
+      var type = params.get('type');
+      var typeLabelMap = {
+        residential: 'Residential Consultation',
+        housing: 'Housing Society Consultation',
+        commercial: 'Commercial Consultation'
+      };
+      if (!type || !typeLabelMap[type]) {
+        type = 'residential';
+      }
+
+      var heading = document.querySelector('.thankyou-title');
+      var message = document.querySelector('.thankyou-message');
+      if (heading) {
+        heading.textContent = 'Thank You for your ' + typeLabelMap[type] + '!';
+      }
+      if (message) {
+        message.textContent = 'We got your ' + typeLabelMap[type].toLowerCase() + ' details and an expert will reach out to you shortly. We are excited to begin your solar journey together.';
+      }
+
+      // Optional: keep type as ref in the return link
+      var repeatLink = document.querySelector('.btn.btn-outline');
+      if (repeatLink) {
+        repeatLink.href = 'index.html#consultation';
+      }
+    });
+  </script>
+</body>
+</html>

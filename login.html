@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Solarbean Energies</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="auth-page">
+  <header class="site-header">
+    <a href="index.html" class="logo-link">
+      <img src="logo.jpeg" alt="Solarbean Energies" class="header-logo" />
+    </a>
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="index.html#consultation">Our Offerings</a></li>
+        <li><a href="index.html#solutions-section">Solar Solutions</a></li>
+        <li><a href="index.html#on-grid">Our Presence</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="register.html" class="btn btn-primary">Sign up</a>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <h1>Login</h1>
+      <p class="sub">Welcome back to Solarbean Energies. Sign in to your account.</p>
+      <div id="auth-message" class="message-box" aria-live="polite"></div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="login-email">Email *</label>
+          <input type="email" id="login-email" name="email" required placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password *</label>
+          <input type="password" id="login-password" name="password" required placeholder="Enter your password" />
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <p class="footer-link">Don't have an account? <a href="register.html">Register here</a></p>
+      <p class="footer-link"><a href="forgot.html">Forgot password?</a></p>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      if (await redirectIfLoggedIn()) return;
+      if (typeof initNavInteractions === 'function') {
+        initNavInteractions();
+      }
+      if (typeof updateHeaderAuthState === 'function') {
+        updateHeaderAuthState();
+      }
+
+      function showMessage(type, text) {
+        var el = document.getElementById('auth-message');
+        if (!el) return;
+        el.textContent = text;
+        el.className = 'message-box ' + (type === 'success' ? 'message-success' : 'message-error');
+      }
+
+      document.getElementById('login-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var email = document.getElementById('login-email').value.trim();
+        var password = document.getElementById('login-password').value;
+        if (!email || !password) return;
+
+        try {
+          const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+          });
+          if (error) throw error;
+          showMessage('success', 'Login successful! Redirecting to dashboard...');
+          setTimeout(function() {
+            window.location.href = 'maindashboard.html';
+          }, 1100);
+        } catch (err) {
+          console.error('Login error:', err);
+          const msg = err.message || '';
+          if (msg.toLowerCase().includes('confirm') || msg.toLowerCase().includes('not confirmed')) {
+            showMessage('error', 'Your email is not confirmed yet. Please check your email for the verification link before login.');
+            return;
+          }
+          showMessage('error', 'Login failed: ' + (err.message || 'Please try again.'));
+        }
+      });
+    });
+  </script>
+</body>
+</html>

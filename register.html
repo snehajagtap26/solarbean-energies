@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | Solarbean Energies</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="auth-page">
+  <header class="site-header">
+    <a href="index.html" class="logo-link">
+      <img src="logo.jpeg" alt="Solarbean Energies" class="header-logo" />
+    </a>
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="index.html#consultation">Our Offerings</a></li>
+        <li><a href="index.html#solutions-section">Solar Solutions</a></li>
+        <li><a href="index.html#on-grid">Our Presence</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="login.html" class="btn btn-primary">Login</a>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <h1>Create an account</h1>
+      <p class="sub">Join Solarbean Energies to manage your solar journey.</p>
+      <div id="auth-message" class="message-box" aria-live="polite"></div>
+      <form id="register-form">
+        <div class="form-group">
+          <label for="reg-name">Full Name *</label>
+          <input type="text" id="reg-name" name="name" required placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label for="reg-email">Email *</label>
+          <input type="email" id="reg-email" name="email" required placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="reg-phone">Phone (optional)</label>
+          <input type="tel" id="reg-phone" name="phone" placeholder="10-digit mobile" />
+        </div>
+        <div class="form-group">
+          <label for="reg-password">Password *</label>
+          <input type="password" id="reg-password" name="password" required placeholder="Min 6 characters" minlength="6" />
+        </div>
+        <div class="form-group">
+          <label for="reg-confirm">Confirm Password *</label>
+          <input type="password" id="reg-confirm" name="confirmPassword" required placeholder="Confirm password" minlength="6" />
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+      <p class="footer-link">Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      if (await redirectIfLoggedIn()) return;
+      if (typeof initNavInteractions === 'function') {
+        initNavInteractions();
+      }
+      if (typeof updateHeaderAuthState === 'function') {
+        updateHeaderAuthState();
+      }
+
+      function showMessage(type, text) {
+        var el = document.getElementById('auth-message');
+        if (!el) return;
+        el.textContent = text;
+        el.className = 'message-box ' + (type === 'success' ? 'message-success' : 'message-error');
+      }
+
+      document.getElementById('register-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var name = document.getElementById('reg-name').value.trim();
+        var email = document.getElementById('reg-email').value.trim();
+        var phone = document.getElementById('reg-phone').value.trim();
+        var password = document.getElementById('reg-password').value;
+        var confirm = document.getElementById('reg-confirm').value;
+        if (!name || !email || !password) return;
+        if (password !== confirm) {
+          alert('Passwords do not match.');
+          return;
+        }
+        if (password.length < 6) {
+          alert('Password must be at least 6 characters.');
+          return;
+        }
+
+        try {
+          const redirectAfterConfirm = window.location.origin + '/maindashboard.html';
+          const { data, error } = await supabaseClient.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+              emailRedirectTo: redirectAfterConfirm,
+              data: { name: name, phone: phone }
+            }
+          });
+          if (error) throw error;
+          showMessage('success', 'Registration successful. Please check your email to verify. After confirmation, you will be redirected to your dashboard.');
+        } catch (err) {
+          console.error('Register error:', err);
+          showMessage('error', 'Registration failed: ' + (err.message || 'Please try again.'));
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solar Savings Calculator | Solarbean Energies</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="calculator-page">
+  <header class="site-header">
+    <a href="index.html" class="logo-link">
+      <img src="logo.jpeg" alt="Solarbean Energies" class="header-logo" />
+    </a>
+    <nav>
+      <ul class="nav-menu">
+        <li class="nav-item nav-item-dropdown">
+          <button type="button" class="nav-link nav-dropdown-toggle" data-dropdown="offerings">Our Offerings</button>
+          <ul class="nav-dropdown" data-dropdown-menu="offerings">
+            <li><a href="index.html#consultation" class="nav-link">Residential</a></li>
+            <li><a href="index.html#consultation" class="nav-link">Housing Society</a></li>
+            <li><a href="index.html#consultation" class="nav-link">Commercial</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="index.html#solutions-section" class="nav-link">Our Solutions</a>
+        </li>
+        <li class="nav-item nav-item-dropdown">
+          <button type="button" class="nav-link nav-dropdown-toggle" data-dropdown="solar">Solar Solutions</button>
+          <ul class="nav-dropdown" data-dropdown-menu="solar">
+            <li><a href="on-grid.html" class="nav-link">On-grid Solar</a></li>
+            <li><a href="off-grid.html" class="nav-link">Off-grid Solar</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="calculator.html" class="nav-link">Solar Calculator</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="login.html" class="btn btn-outline">Login</a>
+      <a href="register.html" class="btn btn-primary">Sign up</a>
+    </div>
+  </header>
+
+  <main class="consultation-section">
+    <p class="section-label">Solar savings</p>
+    <h1 class="consultation-heading">Estimate your rooftop solar savings</h1>
+    <p class="consultation-sub">Use this simple calculator to see a quick estimate of system size, upfront cost, subsidy and long-term savings based on your average monthly electricity bill.</p>
+
+    <div class="consultation-card calculator-layout">
+      <div class="calculator-form-card">
+        <div class="consultation-form-wrap">
+          <form id="solar-calculator-form" class="form-panel active">
+            <div class="form-group">
+              <label for="calc-pincode">Pin code *</label>
+              <input type="text" id="calc-pincode" name="pincode" required placeholder="Enter your 6-digit pincode" maxlength="6" />
+            </div>
+            <div class="form-group">
+              <label for="calc-bill">Average monthly electricity bill (₹) *</label>
+              <input type="text" id="calc-bill" name="bill" required placeholder="e.g. 2500" />
+            </div>
+            <p class="consultation-sub" style="font-size:0.85rem;margin-top:0.25rem;">
+              This calculator uses typical Indian assumptions of ~4 units/kW/day generation and ₹8/unit tariff. Actual numbers will depend on your DISCOM, city and roof.
+            </p>
+            <div class="submit-wrap">
+              <button type="submit" class="btn btn-primary">Calculate savings</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="calculator-results-card">
+        <div class="solutions-grid">
+          <article class="solution-card">
+            <span class="solution-pill">System</span>
+            <h3>Recommended size</h3>
+            <p id="calc-system-size">–</p>
+            <p id="calc-roof-area" style="margin-top:0.35rem;font-size:0.85rem;color:var(--text-muted);">Roof area: –</p>
+          </article>
+          <article class="solution-card">
+            <span class="solution-pill">Savings</span>
+            <h3>Electricity savings</h3>
+            <p>Monthly: <span id="calc-monthly-savings">–</span></p>
+            <p style="margin-top:0.35rem;">Yearly: <span id="calc-yearly-savings">–</span></p>
+          </article>
+          <article class="solution-card">
+            <span class="solution-pill">Investment</span>
+            <h3>Approx. investment</h3>
+            <p>Total cost: <span id="calc-plant-cost">–</span></p>
+            <p>Central subsidy: <span id="calc-subsidy">–</span></p>
+            <p style="margin-top:0.35rem;">Net cost: <span id="calc-net-cost">–</span></p>
+          </article>
+          <article class="solution-card">
+            <span class="solution-pill">Long term</span>
+            <h3>Lifetime impact</h3>
+            <p>Lifetime savings (25 yrs): <span id="calc-lifetime-savings">–</span></p>
+            <p style="margin-top:0.35rem;">Average return: <span id="calc-roi">–</span></p>
+          </article>
+        </div>
+      </div>        
+
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof initSolarCalculator === 'function') {
+        initSolarCalculator();
+      }
+      if (typeof initNavInteractions === 'function') {
+        initNavInteractions();
+      }
+      if (typeof updateHeaderAuthState === 'function') {
+        updateHeaderAuthState();
+      }
+    });
+  </script>
+</body>
+</html>
+

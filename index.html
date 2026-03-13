@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solarbean Energies | Rooftop Solar & Clean Energy</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .auth-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1200;
+    }
+    .auth-modal-backdrop.active {
+      display: flex;
+    }
+    .auth-modal {
+      width: min(560px, 92%);
+      min-height: 440px;
+      background: url('solar2.jpg') center/cover no-repeat;
+      border-radius: 18px;
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.38);
+      padding: 1.7rem 1.4rem 1.4rem;
+      text-align: center;
+      border: 1px solid rgba(86, 156, 231, 0.55);
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .auth-modal::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(5, 35, 88, 0.55), rgba(7, 70, 143, 0.45));
+      z-index: 0;
+      border-radius: 18px;
+    }
+    .auth-modal h2,
+    .auth-modal .quote-text,
+    .auth-modal .auth-actions {
+      position: relative;
+      z-index: 1;
+    }
+    .auth-modal h2 {
+      margin-bottom: 0.4rem;
+      color: #fff;
+      font-size: 1.45rem;
+    }
+    .auth-modal .quote-text {
+      margin: 0.4rem auto 1rem;
+      max-width: 86%;
+      color: #fff;
+      font-style: italic;
+      font-size: 1.02rem;
+      line-height: 1.5;
+      border-left: 3px solid rgba(255,255,255,0.9);
+      padding-left: 0.9rem;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+    .auth-modal .modal-info {
+      margin: 0.55rem auto 0.95rem;
+      max-width: 90%;
+      text-align: left;
+      color: #fff;
+      background: rgba(0,0,30,0.45);
+      border: 1px solid rgba(255,255,255,0.45);
+      border-radius: 14px;
+      padding: 0.9rem 1rem;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
+    }
+    .auth-modal .modal-info p {
+      margin: 0 0 0.45rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .auth-modal .modal-info ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      font-size: 0.93rem;
+      line-height: 1.55;
+      color: #f4f8ff;
+    }
+    .auth-modal .modal-info li {
+      margin-bottom: 0.33rem;
+    }
+    .auth-modal .auth-actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 1.1rem;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .auth-modal .auth-actions a {
+      flex: 1 1 140px;
+      min-width: 120px;
+      padding: 0.78rem 0.95rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-align: center;
+      border: 1px solid transparent;
+    }
+    .auth-modal .auth-actions a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.2);
+    }
+    .auth-modal .btn-primary {
+      background: linear-gradient(90deg, #0f4ebf, #2e84f6);
+      color: #fff;
+    }
+    .auth-modal .btn-outline {
+      background: #fff;
+      color: #0f4ebf;
+      border-color: #e8f2ff;
+    }
+    .auth-modal .btn-outline:hover {
+      background: #f8fbff;
+    }
+    .auth-modal .auth-actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+    .auth-modal .auth-actions a {
+      flex: 1 1 140px;
+      min-width: 140px;
+      padding: 0.82rem 0.95rem;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .auth-modal .auth-actions a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.2);
+    }
+    .auth-modal p {
+      color: #334155;
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .auth-modal a {
+      display: inline-block;
+      margin: 0.25rem 0.35rem;
+      padding: 0.48rem 0.85rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .auth-modal a.btn-primary {
+      background: linear-gradient(90deg,#133a8a,#2563eb);
+      color: #fff;
+    }
+    .auth-modal a.btn-outline {
+      border: 1.5px solid #133a8a;
+      color: #133a8a;
+    }
+    .auth-modal .close-btn {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.25rem;
+      color: #64748b;
+    }  
+  </style>
+</head>
+<body class="index-page">
+  <header class="site-header">
+    <a href="index.html" class="logo-link">
+      <img src="logo.jpeg" alt="Solarbean Energies" class="header-logo" />
+    </a>
+    <nav>
+      <ul class="nav-menu">
+        <li class="nav-item nav-item-dropdown">
+          <button type="button" class="nav-link nav-dropdown-toggle" data-dropdown="offerings">Our Offerings</button>
+          <ul class="nav-dropdown" data-dropdown-menu="offerings">
+            <li><a href="#consultation" class="nav-link" data-open-tab="residential">Residential</a></li>
+            <li><a href="#consultation" class="nav-link" data-open-tab="housing">Housing Society</a></li>
+            <li><a href="#consultation" class="nav-link" data-open-tab="commercial">Commercial</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#solutions-section" class="nav-link">Our Solutions</a>
+        </li>
+        <li class="nav-item nav-item-dropdown">
+          <button type="button" class="nav-link nav-dropdown-toggle" data-dropdown="solar">Solar Solutions</button>
+          <ul class="nav-dropdown" data-dropdown-menu="solar">
+            <li><a href="on-grid.html" class="nav-link">On-grid Solar</a></li>
+            <li><a href="off-grid.html" class="nav-link">Off-grid Solar</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="calculator.html" class="nav-link">Solar Calculator</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="login.html" class="btn btn-outline">Login</a>
+      <a href="register.html" class="btn btn-primary">Sign up</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2 class="hero-tag">Power your future with <span class="hero-accent">clean energy</span></h2>
+      <p class="hero-sub">Rooftop solar for homes, housing societies, and businesses. Get a free consultation and start saving on your electricity bills.</p>
+    </div>
+  </section>
+
+  <main class="consultation-section" id="consultation">
+    <p class="section-label">Get started</p>
+    <h1 class="consultation-heading">Schedule a <span class="highlight">FREE</span> consultation</h1>
+    <p class="consultation-sub">Fill in the form and our team will get in touch with you shortly.</p>
+
+    <div class="consultation-card">
+      <div class="consultation-form-wrap">
+        <div class="form-tabs" role="tablist">
+          <button type="button" class="form-tab active" role="tab" aria-selected="true" data-tab="residential">Residential</button>
+          <button type="button" class="form-tab" role="tab" aria-selected="false" data-tab="housing">Housing Society</button>
+          <button type="button" class="form-tab" role="tab" aria-selected="false" data-tab="commercial">Commercial</button>
+        </div>
+
+        <!-- Residential form (same fields as Housing Society) -->
+        <form id="form-residential" class="form-panel active" data-panel="residential">
+          <div class="form-group">
+            <label for="res-fullname">Full Name *</label>
+            <input type="text" id="res-fullname" name="fullName" required placeholder="Enter your full name" />
+          </div>
+          <div class="form-group">
+            <label for="res-whatsapp">WhatsApp number *</label>
+            <input type="tel" id="res-whatsapp" name="whatsapp" required placeholder="Enter WhatsApp number" />
+          </div>
+          <div class="form-group">
+            <label for="res-pincode">Pin code *</label>
+            <input type="text" id="res-pincode" name="pincode" required placeholder="Enter pin code" maxlength="6" />
+          </div>
+          <div class="form-group">
+            <label>What is your average monthly bill? *</label>
+            <div class="bill-options">
+              <label><input type="radio" name="res-bill" value="lt1500" required /><span>Less than ₹1500</span></label>
+              <label><input type="radio" name="res-bill" value="1500-2500" /><span>₹1500 - ₹2500</span></label>
+              <label><input type="radio" name="res-bill" value="2500-4000" /><span>₹2500 - ₹4000</span></label>
+              <label><input type="radio" name="res-bill" value="4000-8000" /><span>₹4000 - ₹8000</span></label>
+              <label><input type="radio" name="res-bill" value="gt8000" /><span>More than ₹8000</span></label>
+            </div>
+          </div>
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="res-terms" name="terms" required />
+            <label for="res-terms">I agree to Solarbean Energies' <a href="#">terms of service</a> & <a href="#">privacy policy</a>.</label>
+          </div>
+          <div class="submit-wrap">
+            <button type="submit" class="btn btn-primary">Submit Details</button>
+          </div>
+        </form>
+
+        <!-- Housing Society form (fields tailored for societies) -->
+        <form id="form-housing" class="form-panel" data-panel="housing">
+          <div class="form-group">
+            <label for="hou-fullname">Full Name *</label>
+            <input type="text" id="hou-fullname" name="fullName" required placeholder="Enter your full name" />
+          </div>
+          <div class="form-group">
+            <label for="hou-society">Name of Housing Society *</label>
+            <input type="text" id="hou-society" name="housingName" required placeholder="Enter housing society name" />
+          </div>
+          <div class="form-group">
+            <label for="hou-pincode">Pin code *</label>
+            <input type="text" id="hou-pincode" name="pincode" required placeholder="Enter pin code" maxlength="6" />
+          </div>
+          <div class="form-group">
+            <label for="hou-whatsapp">WhatsApp number *</label>
+            <input type="tel" id="hou-whatsapp" name="whatsapp" required placeholder="Enter WhatsApp number" />
+          </div>
+          <div class="form-group">
+            <label for="hou-bill">Monthly Electricity Bill *</label>
+            <select id="hou-bill" name="monthlyBill" required>
+              <option value="">Select range</option>
+              <option value="0-50000">₹0 – ₹50,000</option>
+              <option value="50000-100000">₹50,000 – ₹1,00,000</option>
+              <option value="100000-200000">₹1,00,000 – ₹2,00,000</option>
+              <option value="gt200000">More than ₹2,00,000</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>What is your designation in Housing Society? *</label>
+            <div class="designation-options">
+              <label><input type="radio" name="hou-designation" value="management" required />Management committee member</label>
+              <label><input type="radio" name="hou-designation" value="resident" />Resident</label>
+              <label><input type="radio" name="hou-designation" value="builder" />Builder</label>
+              <label><input type="radio" name="hou-designation" value="facility" />Facility Manager</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="hou-agm">AGM approval status *</label>
+            <select id="hou-agm" name="agmStatus" required>
+              <option value="">Select Approval Status</option>
+              <option value="approved">Approved</option>
+              <option value="in-progress">Approval in progress</option>
+              <option value="not-started">Not yet discussed</option>
+            </select>
+          </div>
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="hou-terms" name="terms" required />
+            <label for="hou-terms">I agree to Solarbean Energies' <a href="#">terms of service</a> & <a href="#">privacy policy</a>.</label>
+          </div>
+          <div class="submit-wrap">
+            <button type="submit" class="btn btn-primary">Submit Details</button>
+          </div>
+        </form>
+
+        <!-- Commercial form (different fields) -->
+        <form id="form-commercial" class="form-panel" data-panel="commercial">
+          <div class="form-group">
+            <label for="com-fullname">Full Name *</label>
+            <input type="text" id="com-fullname" name="fullName" required placeholder="Enter your full name" />
+          </div>
+          <div class="form-group">
+            <label for="com-company">Company Name *</label>
+            <input type="text" id="com-company" name="companyName" required placeholder="Enter company name" />
+          </div>
+          <div class="form-group">
+            <label for="com-city">City *</label>
+            <input type="text" id="com-city" name="city" required placeholder="Enter city" />
+          </div>
+          <div class="form-group">
+            <label for="com-pincode">Pin code *</label>
+            <input type="text" id="com-pincode" name="pincode" required placeholder="Enter pin code" maxlength="6" />
+          </div>
+          <div class="form-group">
+            <label for="com-whatsapp">WhatsApp number *</label>
+            <input type="tel" id="com-whatsapp" name="whatsapp" required placeholder="Enter WhatsApp number" />
+          </div>
+          <div class="form-group">
+            <label for="com-bill">Average Monthly Bill *</label>
+            <input type="text" id="com-bill" name="avgBill" required placeholder="Enter average monthly bill" />
+          </div>
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="com-terms" name="terms" required />
+            <label for="com-terms">I agree to Solarbean Energies' <a href="#">terms of service</a> & <a href="#">privacy policy</a>.</label>
+          </div>
+          <div class="submit-wrap">
+            <button type="submit" class="btn btn-primary">Submit Details</button>
+          </div>
+        </form>
+      </div>
+      <div class="consultation-visual">
+        <img
+          id="consultation-image"
+          src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80"
+          alt="Solar consultation for homes"
+          data-src-residential="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80"
+          data-src-housing="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80"
+          data-src-commercial="https://images.unsplash.com/photo-1509395176047-4a66953fd231?w=600&q=80"
+        />
+      </div>
+    </div>
+  </main>
+
+  <section class="solutions-section" id="solutions-section">
+    <p class="section-label">Our solutions</p>
+    <h2 class="solutions-heading">Solar solutions for every type of roof</h2>
+    <p class="solutions-sub">Choose the segment that matches you and jump straight to the right consultation form.</p>
+
+    <div class="solutions-grid">
+      <article class="solution-card" data-open-tab="residential" onclick="window.location.href='consultation2.html?type=residential'">
+        <img class="solution-image" src="ResSolar.jpg" alt="Residential solar" />
+        <span class="solution-pill">Homes</span>
+        <h3>Residential Rooftop Solar</h3>
+        <p>Cut your home electricity bills by up to 90% with a custom rooftop system designed for your house.</p>
+      </article>
+      <article class="solution-card" data-open-tab="housing" onclick="window.location.href='consultation2.html?type=housing'">
+        <img class="solution-image" src="housing.png" alt="Housing society solar" />
+        <span class="solution-pill">Housing society</span>
+        <h3>Society & Apartment Blocks</h3>
+        <p>Power common areas and lifts with shared solar that benefits every resident in the society.</p>
+      </article>
+      <article class="solution-card" data-open-tab="commercial" onclick="window.location.href='consultation2.html?type=commercial'">
+        <img class="solution-image" src="commercial.jpg" alt="Commercial solar" />
+        <span class="solution-pill">Business</span>
+        <h3>Commercial & Industrial</h3>
+        <p>Lower operating costs and lock-in long term power savings for your business or institution.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="consultation-section" id="on-grid">
+    <p class="section-label">Solar solutions</p>
+    <h2 class="consultation-heading">On-grid solar</h2>
+    <p class="consultation-sub">Connect your rooftop system to the grid, export surplus power and offset your bill through net metering.</p>
+    <div class="solutions-grid">
+      <article class="solution-card click-card" onclick="window.location.href='on-grid.html'">
+        <img class="solution-image" src="on1.jpg" alt="On-grid system 1">
+        <h3>On-grid: Starter Package</h3>
+        <p>1-2 kW for small homes with grid backup.</p>
+      </article>
+      <article class="solution-card click-card" onclick="window.location.href='on-grid.html'">
+        <img class="solution-image" src="on2.jpg" alt="On-grid system 2">
+        <h3>On-grid: Premium Package</h3>
+        <p>3-5 kW with advanced net metering benefits.</p>
+      </article>
+      <article class="solution-card click-card" onclick="window.location.href='on-grid.html'">
+        <img class="solution-image" src="on3.jpg" alt="On-grid system 3">
+        <h3>On-grid: Elite Package</h3>
+        <p>6-8 kW for high-demand homes and small businesses.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="consultation-section" id="off-grid">
+    <p class="section-label">Solar solutions</p>
+    <h2 class="consultation-heading">Off-grid solar</h2>
+    <p class="consultation-sub">Use batteries to store solar energy and keep critical loads running even when the grid goes down.</p>
+    <div class="solutions-grid">
+      <article class="solution-card click-card" onclick="window.location.href='off-grid.html'">
+        <img class="solution-image" src="off1.jpg" alt="Off-grid setup 1">
+        <h3>Off-grid: Compact</h3>
+        <p>Small load systems with essential backup capacity.</p>
+      </article>
+      <article class="solution-card click-card" onclick="window.location.href='off-grid.html'">
+        <img class="solution-image" src="off2.jpg" alt="Off-grid setup 2">
+        <h3>Off-grid: Full backup</h3>
+        <p>Large battery bank for full home autonomy.</p>
+      </article>
+      <article class="solution-card click-card" onclick="window.location.href='off-grid.html'">
+        <img class="solution-image" src="off3.jpg" alt="Off-grid setup 3">
+        <h3>Off-grid: Premium backup</h3>
+        <p>High-capacity batteries for 24/7 resilience with critical loads.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="about-us" id="about-us">
+    <div class="about-us-wrapper">
+      <div class="about-header">
+        <img src="logo.jpeg" alt="Solarbean Energies" class="about-logo" />
+        <div>
+          <h2>About Us</h2>
+          <p>Solarbean Energies is dedicated to providing clean rooftop solar solutions for homes, societies, and businesses across India.</p>
+        </div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <strong>Address</strong>
+          <p>Pune, Maharashtra</p>
+        </div>
+        <div class="contact-card">
+          <strong>Email</strong>
+          <p><a href="mailto:contact@solarbean.in">Solarbeanenergies@gmail.com</a></p>
+        </div>
+        <div class="contact-card">
+          <strong>Phone</strong>
+          <p>+91 96232 44458</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <a href="#consultation" class="floating-cta" id="floating-cta">→ Get a free consultation</a>
+
+  <div id="auth-modal-backdrop" class="auth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+    <div class="auth-modal">
+      <button id="auth-modal-close" class="close-btn" aria-label="Close">×</button>
+      <h2 id="auth-modal-title">Book Your Free Solar Consultation</h2>
+      <p class="quote-text">“Switching to solar is the smartest way to power your home and reduce energy costs while helping our planet.”</p>
+      <div class="modal-info">
+        <p>Join 500+ satisfied customers and get:</p>
+        <ul>
+          <li>Free site survey and custom quote</li>
+          <li>0% EMI options and government rebate guidance</li>
+          <li>Fast installation with 5-year performance warranty</li>
+        </ul>
+      </div>
+      <div class="auth-actions">
+        <a href="login.html" class="btn btn-primary">Login</a>
+        <a href="register.html" class="btn btn-outline">Signup</a>
+      </div>
+    </div>
+  </div>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      initConsultationTabs();
+      initConsultationForms();
+      if (typeof initNavInteractions === 'function') {
+        initNavInteractions();
+      }
+      if (typeof updateHeaderAuthState === 'function') {
+        updateHeaderAuthState();
+      }
+
+      var requestedType = new URLSearchParams(window.location.search).get('type');
+      if (requestedType && typeof openConsultationTab === 'function') {
+        openConsultationTab(requestedType);
+      }
+
+      async function showAuthModal() {
+        if (await isLoggedIn()) return;
+        var backdrop = document.getElementById('auth-modal-backdrop');
+        if (backdrop) {
+          backdrop.classList.add('active');
+        }
+      }
+
+      function setupAuthModalClose() {
+        var closeBtn = document.getElementById('auth-modal-close');
+        var backdrop = document.getElementById('auth-modal-backdrop');
+        if (!closeBtn || !backdrop) return;
+        closeBtn.addEventListener('click', function() {
+          localStorage.removeItem('solarbean_disable_auth_modal');
+          backdrop.classList.remove('active');
+        });
+
+        backdrop.addEventListener('click', function(e) {
+          if (e.target === backdrop) {
+            localStorage.removeItem('solarbean_disable_auth_modal');
+            backdrop.classList.remove('active');
+          }
+        });
+      }
+
+      setupAuthModalClose();
+
+      if (!(await isLoggedIn())) {
+        setTimeout(showAuthModal, 600);
+      }
+    });
+  </script>
+</body>
+</html>

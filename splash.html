@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solarbean Energies | Welcome</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body, html { margin:0; padding:0; height:100%; }
+    .splash-page {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(14,30,82,0.64), rgba(3,105,161,0.5)), url('solar1.jpg') center / cover no-repeat;
+    }
+    .splash-page::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(6,37,76,0.56), rgba(8,52,100,0.4));
+      z-index: 0;
+    }
+    .splash-content {
+      position: relative;
+      z-index: 1;
+      width: min(860px, 90%);
+      padding: 2.25rem 2.25rem 2rem;
+      background: rgba(217, 239, 255, 0.86);
+      border-radius: 20px;
+      border: 1px solid rgba(167, 211, 249, 0.9);
+      box-shadow: 0 18px 50px rgba(2, 23, 75, 0.25);
+      backdrop-filter: blur(4px);
+    }
+    .splash-content h1 {
+      margin:0 0 0.85rem;
+      font-family: var(--font-head);
+      color: #0f3362;
+      font-size: clamp(1.8rem, 3vw, 2.55rem);
+      letter-spacing: -0.02em;
+    }
+    .splash-content p {
+      color: #334155;
+      margin-bottom: 1.2rem;
+      font-size: 1.06rem;
+      line-height: 1.5;
+    }
+    .splash-quote {
+      margin: 1.1rem 0 1.35rem;
+      font-size: min(2rem, 6vw);
+      font-weight: 700;
+      color: #0f3f81;
+      text-shadow: 0 3px 12px rgba(17, 35, 75, 0.28);
+    }
+    .splash-content .btn { margin: 0 0.35rem; }
+    .auth-modal-backdrop { position: fixed; inset:0; background: rgba(0,0,0,0.35); display:none; align-items:center; justify-content:center; z-index:1200; }
+    .auth-modal-backdrop.active { display:flex; }
+    .auth-modal { width:min(420px,92%); background: linear-gradient(180deg, #eff6ff, #ffffff); border-radius:14px; box-shadow: 0 15px 40px rgba(8,35,96,0.35); padding:1.4rem; position:relative; border: 1px solid rgba(37,99,235,0.4); }
+    .auth-modal h2 { margin: 0 0 0.4rem; color: #0e3f88; font-size: 1.28rem; }
+    .auth-modal p { margin:0 0 1rem; color:#334155; line-height:1.5; }
+    .auth-modal a { display:inline-block; margin:0.3rem 0.3rem; padding:0.52rem 1rem; border-radius:999px; text-decoration:none; font-weight:700; letter-spacing:0.01em; }
+    .auth-modal a.btn-primary { background: linear-gradient(90deg,#0f3ed7,#2563eb); color:#fff; border: none; }
+    .auth-modal a.btn-outline { border:2px solid #0f3ed7; color:#0f3ed7; background: rgba(234,242,255,0.9); }
+    .auth-modal a.btn-outline:hover { background: rgba(212,233,253,0.95); }
+    .auth-modal .close-btn { position:absolute; top:0.45rem; right:0.55rem; border:none; background:transparent; font-size:1.25rem; color:#475569; cursor:pointer; }
+  </style>
+</head>
+<body class="splash-page">
+  <div class="splash-content">
+    <img src="logo.jpeg" alt="Solarbean Energies" style="max-height:88px;margin-bottom:0.9rem;" />
+    <h1>Let the sun pay your bills</h1>
+    <p class="splash-quote">“Switch to solar today and start saving from tomorrow.”</p>
+    <p>Reliable rooftop solar solutions for homes, society blocks, and businesses across India. Get an expert consultation and personalized solar design.</p>
+    <a href="index.html" class="btn btn-primary">Start Free Consultation --></a>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var redirectBtn = document.querySelector('.splash-content .btn-primary');
+      if (redirectBtn) {
+        redirectBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          window.location.href = 'index.html?type=residential';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
