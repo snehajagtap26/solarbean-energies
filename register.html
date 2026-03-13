@@ -38,7 +38,7 @@
           <input type="email" id="reg-email" name="email" required placeholder="you@example.com" />
         </div>
         <div class="form-group">
-          <label for="reg-phone">Phone (optional)</label>
+          <label for="reg-phone">Phone</label>
           <input type="tel" id="reg-phone" name="phone" placeholder="10-digit mobile" />
         </div>
         <div class="form-group">
@@ -103,10 +103,19 @@
             }
           });
           if (error) throw error;
-          showMessage('success', 'Registration successful. Please check your email to verify. After confirmation, you will be redirected to the home page.');
+          showMessage('success', 'Account created successfully! Redirecting...');
+
+          setTimeout(() => {
+          window.location.replace("index.html");
+          }, 1500);
         } catch (err) {
           console.error('Register error:', err);
-          showMessage('error', 'Registration failed: ' + (err.message || 'Please try again.'));
+          const msg = err.message || '';
+          if (msg.toLowerCase().includes('rate limit') || msg.toLowerCase().includes('too many')) {
+            showMessage('error', 'Too many registration attempts. Please wait a few minutes before trying again.');
+          } else {
+            showMessage('error', 'Registration failed: ' + (err.message || 'Please try again.'));
+          }
         }
       });
     });

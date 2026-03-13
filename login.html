@@ -77,7 +77,7 @@
             password: password
           });
           if (error) throw error;
-          showMessage('success', 'Login successful! Redirecting to home page...');
+          showMessage('success', 'Login successful! Redirecting...');
           setTimeout(function() {
             window.location.href = 'index.html';
           }, 1100);
@@ -108,7 +108,12 @@
           showMessage('success', 'Verification email resent. Please check your inbox.');
         } catch (err) {
           console.error('Resend error:', err);
-          showMessage('error', 'Failed to resend verification email: ' + (err.message || 'Please try again.'));
+          const msg = err.message || '';
+          if (msg.toLowerCase().includes('rate limit') || msg.toLowerCase().includes('too many')) {
+            showMessage('error', 'Too many resend attempts. Please wait a few minutes before trying again.');
+          } else {
+            showMessage('error', 'Failed to resend verification email: ' + (err.message || 'Please try again.'));
+          }
         }
       });
     });
