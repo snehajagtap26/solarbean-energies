@@ -41,6 +41,7 @@
       </form>
       <p class="footer-link">Don't have an account? <a href="register.html">Register here</a></p>
       <p class="footer-link"><a href="forgot.html">Forgot password?</a></p>
+      <p class="footer-link"><a href="#" id="resend-verification">Resend verification email</a></p>
     </div>
   </main>
 
@@ -88,6 +89,26 @@
             return;
           }
           showMessage('error', 'Login failed: ' + (err.message || 'Please try again.'));
+        }
+      });
+
+      document.getElementById('resend-verification').addEventListener('click', async function(e) {
+        e.preventDefault();
+        var email = document.getElementById('login-email').value.trim();
+        if (!email) {
+          showMessage('error', 'Please enter your email address first.');
+          return;
+        }
+        try {
+          const { error } = await supabaseClient.auth.resend({
+            type: 'signup',
+            email: email
+          });
+          if (error) throw error;
+          showMessage('success', 'Verification email resent. Please check your inbox.');
+        } catch (err) {
+          console.error('Resend error:', err);
+          showMessage('error', 'Failed to resend verification email: ' + (err.message || 'Please try again.'));
         }
       });
     });
