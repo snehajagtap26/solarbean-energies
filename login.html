@@ -76,9 +76,9 @@
             password: password
           });
           if (error) throw error;
-          showMessage('success', 'Login successful! Redirecting to dashboard...');
+          showMessage('success', 'Login successful! Redirecting to home page...');
           setTimeout(function() {
-            window.location.href = 'maindashboard.html';
+            window.location.href = 'index.html';
           }, 1100);
         } catch (err) {
           console.error('Login error:', err);

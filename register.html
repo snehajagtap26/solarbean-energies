@@ -93,7 +93,7 @@
         }
 
         try {
-          const redirectAfterConfirm = window.location.origin + '/maindashboard.html';
+          const redirectAfterConfirm = window.location.origin + '/index.html';
           const { data, error } = await supabaseClient.auth.signUp({
             email: email,
             password: password,
@@ -103,7 +103,7 @@
             }
           });
           if (error) throw error;
-          showMessage('success', 'Registration successful. Please check your email to verify. After confirmation, you will be redirected to your dashboard.');
+          showMessage('success', 'Registration successful. Please check your email to verify. After confirmation, you will be redirected to the home page.');
         } catch (err) {
           console.error('Register error:', err);
           showMessage('error', 'Registration failed: ' + (err.message || 'Please try again.'));
